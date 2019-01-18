@@ -1,18 +1,20 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion build_versions.target_sdk
+
     defaultConfig {
-        applicationId "com.leodeleon.onflick"
         minSdkVersion build_versions.min_sdk
         targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,15 +22,17 @@ android {
         }
     }
 
-    dataBinding.enabled = true
 }
 
-//To see which deps need to update run: gradle dependencyUpdates -Drevision=release
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":data")
-    implementation deps.jetpack.appcompat
-    implementation deps.jetpack.constraint
+    api project(":domain")
+    api deps.net.okhttp
+    implementation deps.net.retrofit
+    implementation deps.net.retrofitMoshi
+    implementation deps.net.retrofitRx
+    implementation deps.net.moshi
+    kapt deps.kapt.moshi
     testImplementation deps.test.junit5
     androidTestImplementation deps.test.runner
     androidTestImplementation deps.test.espresso
