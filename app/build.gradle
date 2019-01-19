@@ -37,7 +37,6 @@ dependencies {
     implementation deps.jetpack.swipeRefresh
     implementation deps.jetpack.ktx
     implementation deps.rx.rxkotlin
-    implementation deps.rx.rxrelay
     implementation deps.rx.rxbindings
     implementation deps.rx.rxbindingsSwipe
     implementation deps.kotlin.koin
@@ -47,7 +46,6 @@ dependencies {
     testImplementation deps.test.junit5
     testImplementation deps.test.mockk
     testImplementation deps.test.koin
-    testImplementation deps.test.arch
     testImplementation deps.test.livedata
     androidTestImplementation deps.test.runner
     androidTestImplementation deps.test.espresso
