@@ -1,14 +1,17 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion build_versions.target_sdk
     defaultConfig {
         applicationId "com.leodeleon.onflick"
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -16,13 +19,34 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding.enabled = true
 }
 
+//To see which deps need to update run: gradle dependencyUpdates -Drevision=release
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(":data")
+    implementation deps.jetpack.appcompat
+    implementation deps.jetpack.constraint
+    implementation deps.jetpack.fragment
+    implementation deps.jetpack.viewModel
+    implementation deps.jetpack.livedata
+    implementation deps.jetpack.recyclerview
+    implementation deps.jetpack.cardview
+    implementation deps.jetpack.swipeRefresh
+    implementation deps.jetpack.ktx
+    implementation deps.rx.rxkotlin
+    implementation deps.rx.rxbindings
+    implementation deps.rx.rxbindingsSwipe
+    implementation deps.kotlin.koin
+    implementation deps.kotlin.koinViewModel
+    implementation deps.utils.bindingRecycler
+
+    testImplementation deps.test.junit5
+    testImplementation deps.test.mockk
+    testImplementation deps.test.koin
+    testImplementation deps.test.livedata
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.espresso
 }
