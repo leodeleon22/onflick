@@ -1,11 +1,13 @@
 package com.leodeleon.data
 
-import com.leodeleon.domain.Feed
-import com.leodeleon.domain.FeedPhoto
+import com.leodeleon.data.entities.FeedEntity
+import com.leodeleon.data.entities.FeedPhotoEntity
+import com.leodeleon.data.entities.MediaEntity
+import com.leodeleon.data.remote.FlickrService
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
-import io.reactivex.Single
+import io.reactivex.Observable
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,11 +22,11 @@ internal class FeedRepositoryTest {
 
     @Test
     fun `when get feed then return success`() {
-        val feed = Feed(
+        val feed = FeedEntity(
                 title = "test",
                 items = listOf(
-                        FeedPhoto("a","a"),
-                        FeedPhoto("b","b")
+                        FeedPhotoEntity("a", MediaEntity("a")),
+                        FeedPhotoEntity("b", MediaEntity("b"))
                 )
         )
 
@@ -33,13 +35,13 @@ internal class FeedRepositoryTest {
         repo.getPublicFeed().test().apply {
             assertNoErrors()
             assertComplete()
-            assertValues(feed)
+            assertValues(feed.unwrap())
         }
     }
 
-    private fun success(feed: Feed) {
+    private fun success(feed: FeedEntity) {
         every {
             service.getPublicFeed()
-        }.returns(Single.just(feed))
+        }.returns(Observable.just(feed))
     }
 }

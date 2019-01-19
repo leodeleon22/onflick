@@ -1,6 +1,6 @@
-package com.leodeleon.data
+package com.leodeleon.data.remote
 
-import android.content.Context
+import com.leodeleon.data.SchedulerFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">On Flick</string>
+    <string name="feed_error">Error loading feed\nSwipe down to retry</string>
 </resources>

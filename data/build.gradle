@@ -28,6 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(":domain")
     api deps.net.okhttp
+    api deps.net.glide
     implementation deps.net.retrofit
     implementation deps.net.retrofitMoshi
     implementation deps.net.retrofitRx
